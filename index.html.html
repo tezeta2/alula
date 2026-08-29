@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alula — Email marketing for small businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0B0A12;
+  --panel:#15121F;
+  --panel-2:#1D1930;
+  --line:rgba(255,255,255,.09);
+  --violet:#8B5CF6;
+  --magenta:#EC4899;
+  --paper:#F4F1FF;
+  --muted:#A29DB8;
+  --grad:linear-gradient(103deg,var(--violet),var(--magenta));
+  --display:"Bricolage Grotesque",Georgia,serif;
+  --body:"Inter Tight",system-ui,-apple-system,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --pad:clamp(20px,5vw,72px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--paper);
+  font-family:var(--body);font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--magenta);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--pad)}
+.eyebrow{
+  font-family:var(--mono);font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);
+}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- nav ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(14px);background:rgba(11,10,18,.72);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;gap:32px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.02em;text-decoration:none}
+.mark{width:26px;height:26px;border-radius:8px;background:var(--grad);display:grid;place-items:center}
+.mark svg{width:14px;height:14px}
+.nav-links{display:flex;gap:26px;margin-left:auto;font-size:15px;color:var(--muted)}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:var(--paper)}
+.btn{
+  display:inline-block;padding:11px 20px;border-radius:999px;
+  font-weight:600;font-size:15px;text-decoration:none;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 6px 24px -8px var(--violet)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px -8px var(--magenta)}
+.btn-ghost{border:1px solid var(--line);color:var(--paper)}
+.btn-ghost:hover{background:var(--panel-2)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(56px,9vw,110px) 0 clamp(48px,7vw,90px)}
+.glow{
+  position:absolute;inset:-20% -10% auto -10%;height:620px;pointer-events:none;
+  background:radial-gradient(50% 55% at 22% 30%,rgba(139,92,246,.30),transparent 70%),
+             radial-gradient(45% 50% at 72% 12%,rgba(236,72,153,.20),transparent 70%);
+  filter:blur(6px);
+}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,64px);align-items:center}
+h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(40px,5.6vw,68px);line-height:1.03;letter-spacing:-.035em;
+  margin:16px 0 20px;
+}
+.lede{font-size:clamp(17px,1.5vw,20px);color:var(--muted);max-width:34ch;margin:0 0 30px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hero-note{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:18px}
+
+/* ---------- signature: inbox ---------- */
+.inbox{
+  background:linear-gradient(180deg,var(--panel),#100E1A);
+  border:1px solid var(--line);border-radius:20px;padding:18px;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.9);
+}
+.inbox-top{display:flex;align-items:center;gap:8px;padding:2px 4px 14px;border-bottom:1px solid var(--line)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--panel-2)}
+.inbox-label{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:6px;letter-spacing:.1em}
+.mail{
+  display:grid;grid-template-columns:30px 1fr auto;gap:12px;align-items:center;
+  padding:13px 8px;border-bottom:1px solid var(--line);
+  opacity:0;transform:translateY(10px);
+  animation:land .55s cubic-bezier(.2,.7,.3,1) forwards;
+}
+.mail:nth-child(2){animation-delay:.15s}
+.mail:nth-child(3){animation-delay:.35s}
+.mail:nth-child(4){animation-delay:.55s}
+.mail:nth-child(5){animation-delay:.75s}
+@keyframes land{to{opacity:1;transform:none}}
+.avatar{width:30px;height:30px;border-radius:9px;background:var(--panel-2);display:grid;place-items:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.mail b{display:block;font-size:14px;font-weight:600}
+.mail span{display:block;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:26ch}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;padding:4px 8px;border-radius:6px;background:rgba(139,92,246,.14);color:#C4B5FD;white-space:nowrap}
+.tag.open{background:rgba(236,72,153,.14);color:#F9A8D4}
+.inbox-foot{display:flex;justify-content:space-between;align-items:baseline;padding:16px 8px 4px}
+.stat-n{font-family:var(--display);font-size:30px;font-weight:800;letter-spacing:-.03em}
+.stat-l{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em}
+
+/* ---------- sections ---------- */
+section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--line)}
+h2{
+  font-family:var(--display);font-weight:800;letter-spacing:-.03em;
+  font-size:clamp(28px,3.6vw,44px);line-height:1.1;margin:14px 0 14px;max-width:20ch;
+}
+.section-lede{color:var(--muted);max-width:52ch;margin:0 0 40px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:18px;
+  padding:26px 24px 28px;transition:border-color .2s ease,transform .2s ease;
+}
+.card:hover{border-color:rgba(139,92,246,.45);transform:translateY(-3px)}
+.card h3{font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:-.02em;margin:16px 0 8px}
+.card p{color:var(--muted);font-size:15px;margin:0}
+.icon{width:38px;height:38px;border-radius:11px;background:var(--panel-2);display:grid;place-items:center;border:1px solid var(--line)}
+.icon svg{width:18px;height:18px;stroke:#C4B5FD;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-left:1px solid var(--line)}
+.step{padding:0 24px 8px;border-right:1px solid var(--line)}
+.step-n{font-family:var(--mono);font-size:12px;color:var(--magenta);letter-spacing:.14em}
+.step h3{font-family:var(--display);font-size:19px;font-weight:600;margin:12px 0 8px;letter-spacing:-.02em}
+.step p{color:var(--muted);font-size:14.5px;margin:0}
+
+/* ---------- pricing ---------- */
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+.tier{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px 26px}
+.tier.featured{border-color:transparent;background:linear-gradient(var(--panel),var(--panel)) padding-box,var(--grad) border-box;border:1px solid transparent}
+.tier h3{font-family:var(--display);font-size:20px;font-weight:600;margin:0 0 4px}
+.price{font-family:var(--display);font-size:38px;font-weight:800;letter-spacing:-.03em;margin:10px 0 2px}
+.price small{font-family:var(--body);font-size:14px;font-weight:400;color:var(--muted);letter-spacing:0}
+.tier ul{list-style:none;padding:0;margin:20px 0 26px;font-size:15px;color:var(--muted)}
+.tier li{padding:8px 0 8px 24px;position:relative;border-top:1px solid var(--line)}
+.tier li:first-child{border-top:none}
+.tier li::before{content:"";position:absolute;left:2px;top:15px;width:9px;height:9px;border-radius:50%;background:var(--grad)}
+.tier .btn{width:100%;text-align:center}
+
+/* ---------- cta ---------- */
+.cta-box{
+  border-radius:24px;padding:clamp(36px,6vw,64px);text-align:center;
+  background:radial-gradient(120% 130% at 50% 0%,rgba(139,92,246,.22),transparent 60%),var(--panel);
+  border:1px solid var(--line);
+}
+.cta-box h2{margin:14px auto 12px;max-width:16ch}
+.cta-box p{color:var(--muted);max-width:44ch;margin:0 auto 28px}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:14px}
+.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .cards,.tiers{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .step{padding-bottom:26px}
+  .nav-links{display:none}
+}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .mail{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg></span>
+      Alula
+    </a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">How it works</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <a class="btn btn-primary" href="#contact">Book a call</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="glow"></div>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Email marketing studio</p>
+        <h1>Your customer list is <span class="grad">already worth money</span>. Let's collect it.</h1>
+        <p class="lede">Alula builds and runs the email side of small businesses — the welcome flows, the win-backs, the monthly campaign — so revenue stops depending on whether people happen to walk by.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#contact">Book a call</a>
+          <a class="btn btn-ghost" href="#services">See what we run</a>
+        </div>
+        <p class="hero-note">Sacramento-based · Working with 3 businesses at a time</p>
+      </div>
+
+      <div class="inbox" aria-hidden="true">
+        <div class="inbox-top">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="inbox-label">SENDING · TUESDAY 9:02 AM</span>
+        </div>
+        <div class="mail"><div class="avatar">RB</div><div><b>River Bend Coffee</b><span>Your usual, but 20% off this week</span></div><span class="tag open">OPENED</span></div>
+        <div class="mail"><div class="avatar">MD</div><div><b>Midtown Detailing</b><span>It's been 90 days since your last wash</span></div><span class="tag">WIN-BACK</span></div>
+        <div class="mail"><div class="avatar">FS</div><div><b>Folsom Smiles</b><span>Confirming Thursday at 2:15</span></div><span class="tag open">CLICKED</span></div>
+        <div class="mail"><div class="avatar">GP</div><div><b>Grant Park Gym</b><span>Welcome — here's day one</span></div><span class="tag">FLOW 1/5</span></div>
+        <div class="inbox-foot">
+          <div><div class="stat-n grad">42%</div><div class="stat-l">AVG OPEN RATE</div></div>
+          <div><div class="stat-n grad">1,840</div><div class="stat-l">SENT THIS WEEK</div></div>
+          <div><div class="stat-n grad">$6.1k</div><div class="stat-l">ATTRIBUTED</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="services">
+    <div class="wrap">
+      <p class="eyebrow">What we run</p>
+      <h2>Three jobs, done properly</h2>
+      <p class="section-lede">Most small businesses have an email list sitting in a POS system doing nothing. We turn it into a channel you own — no algorithm, no ad spend, no rented audience.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
+          <h3>Automated flows</h3>
+          <p>Welcome series, abandoned checkout, post-purchase, and 90-day win-backs. Written once, earning every day after.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M3 7l9 6 9-6"/></svg></div>
+          <h3>Monthly campaigns</h3>
+          <p>Two to four sends a month with your offers, seasons, and news. You approve a calendar; we write, build, and send it.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 20V10M6 20v-6M18 20V4"/></svg></div>
+          <h3>List growth &amp; deliverability</h3>
+          <p>Capture forms at checkout and on your site, clean lists, and the DNS setup that keeps you out of spam.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2>Four weeks from first call to first send</h2>
+      <p class="section-lede">The order matters here — each step depends on the one before it.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">WEEK 01</div>
+          <h3>Audit</h3>
+          <p>We look at your list, your POS, and what you've sent before. You get the findings whether or not we work together.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">WEEK 02</div>
+          <h3>Set up</h3>
+          <p>Platform, domain authentication, capture forms, and a clean import. This is the part that decides if you land in inboxes.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">WEEK 03</div>
+          <h3>Build flows</h3>
+          <p>We write and build your core automations, in your voice, and you approve every email before it goes live.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">WEEK 04</div>
+          <h3>Send &amp; report</h3>
+          <p>First campaign goes out. From then on you get a monthly one-pager: what sent, what opened, what it made.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Pricing</p>
+      <h2>Flat monthly. Cancel any time.</h2>
+      <p class="section-lede">No setup fee, no percentage of revenue, no annual contract. If a month goes by and you can't see what you paid for, leave.</p>
+      <div class="tiers">
+        <div class="tier">
+          <h3>Starter</h3>
+          <div class="price">$450<small>/mo</small></div>
+          <ul>
+            <li>Two campaigns a month</li>
+            <li>Welcome flow</li>
+            <li>List cleanup and capture form</li>
+            <li>Monthly report</li>
+          </ul>
+          <a class="btn btn-ghost" href="#contact">Start here</a>
+        </div>
+        <div class="tier featured">
+          <h3>Growth</h3>
+          <div class="price">$900<small>/mo</small></div>
+          <ul>
+            <li>Four campaigns a month</li>
+            <li>Full flow suite — welcome, win-back, post-purchase</li>
+            <li>A/B testing on subject lines</li>
+            <li>Deliverability monitoring</li>
+            <li>Monthly call</li>
+          </ul>
+          <a class="btn btn-primary" href="#contact">Book a call</a>
+        </div>
+        <div class="tier">
+          <h3>Project</h3>
+          <div class="price">$1,200<small> once</small></div>
+          <ul>
+            <li>We build it, you run it</li>
+            <li>Flows, templates, and capture forms</li>
+            <li>Written handoff and training call</li>
+            <li>30 days of support</li>
+          </ul>
+          <a class="btn btn-ghost" href="#contact">Get a quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="cta-box">
+        <p class="eyebrow">Free audit</p>
+        <h2>Find out what your list is worth</h2>
+        <p>Send us your business and roughly how many customer emails you have. We'll come back with what we'd do first and what it would make — no call required to get it.</p>
+        <a class="btn btn-primary" href="mailto:hello@alula.co">hello@alula.co</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 Alula · Sacramento, CA</span>
+    <span class="eyebrow">Email marketing for small business</span>
+  </div>
+</footer>
+
+</body>
+</html>
